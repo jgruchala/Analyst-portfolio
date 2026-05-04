@@ -1,0 +1,22 @@
+---
+title: "Self-contained chunk"
+author: Jordan Gruchala
+format: html
+editor: visual
+execute: 
+  echo: false
+---
+
+```{r}
+library(tidyverse) 
+library(readxl) 
+data <- read_excel("best_dog.xlsx", sheet = 2) 
+data |> 
+  ggplot(aes(x = type, y = lifetime_cost, fill = type)) +
+  geom_boxplot(show.legend = FALSE, na.rm = TRUE) +
+  labs(title = "Dog Breed Costs - By Type",
+       x = "Type",
+       y = "Lifetime Costs") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(breaks = seq(13000, 30000, by = 1000)) 
+```
