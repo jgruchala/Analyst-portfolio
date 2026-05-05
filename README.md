@@ -26,3 +26,9 @@ This product includes:
 
 3.) The_European_Union_in_Defence_and_Spacc_FL574_volume_b-2.xlsx (replication data)  
 
+## Code Chunk 
+This products includes a self-contained code chunk. It is in the "newREADME.md" file, and includes a descprition of the code chunk, the code script, an image of the output, and an html link to the output. 
+
+## Resume 
+
+
