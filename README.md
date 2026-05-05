@@ -30,5 +30,5 @@ This product includes:
 This products includes a self-contained code chunk. It is in the "newREADME.md" file, and includes a description of the code chunk, the code script, and an image of the output. Actual output is under the file titled "Self-Contained chunk.pdf"
 
 ## Resume 
-This product is an updated data analyst resume
+This product is an updated data analyst resume, and is under the file titled "resume-dataanalyst.pdf"
 
