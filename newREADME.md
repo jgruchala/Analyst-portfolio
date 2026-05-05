@@ -19,6 +19,8 @@ data |>
   scale_y_continuous(breaks = seq(13000, 30000, by = 1000)) 
 
   ## Output
-  Includes an image of the output and a link to the html output. 
+  - Includes an image of the output and a link to the html output.
+  
   http://localhost:3958/best_dog_files/figure-html/Self-contained%20code%20chunk-1.png<img width="1344" height="960" alt="image" src="https://github.com/user-attachments/assets/d87c2962-923c-4cad-87be-b8d123b8d391" />
+  
 http://localhost:3958/best_dog.html
