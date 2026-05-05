@@ -16,7 +16,7 @@ This product includes:
   3.) best_dog.xlsx (replication data)
   
 ## Product: Threat Perception in the EU 
-Threat perception in the EU examines public opinion on matters of national/international security in EU member countries. The data set is from the European Union's Directorate General for Communication, and is called ["Flash Eurobarometer FL574 : The European Union in Defence and Space’, version v1.00."](https://data.europa.eu/data/datasets/s3652_fl574_eng?locale=en). This data set is a survey, and was compiled by asking respondents a series of questions related to different types of threats to national security. The core measure used for this project is the quesiton "Given the current international context, to what extent do you agree or disagree with the statement? The security of (OURCOUNTRY) is threatened," with the possible answers being strongly agree, somewhat agree, somewhat disagree, strongly disagree, and don't know. I also use French demographic information, and break downs of the above question by demographics. I then visualize these measurements into bar graphs in order to show which countries have the highest threat perception in the EU, and if certain demographics are more prone to higher levels of threat perception. 
+Threat perception in the EU examines public opinion on matters of national/international security in EU member countries. The data set is from the European Union's Directorate General for Communication, and is called ["Flash Eurobarometer FL574 : The European Union in Defense and Space’, version v1.00."](https://data.europa.eu/data/datasets/s3652_fl574_eng?locale=en). This data set is a survey, and was compiled by asking respondents a series of questions related to different types of threats to national security. The core measure used for this project is the question "Given the current international context, to what extent do you agree or disagree with the statement? The security of (OURCOUNTRY) is threatened," with the possible answers being strongly agree, somewhat agree, somewhat disagree, strongly disagree, and don't know. I also use French demographic information, and break downs of the above question by demographics. I then visualize these measurements into bar graphs in order to show which countries have the highest threat perception in the EU, and if certain demographics are more prone to higher levels of threat perception. 
 
 This product includes: 
 
@@ -27,7 +27,7 @@ This product includes:
 3.) The_European_Union_in_Defence_and_Spacc_FL574_volume_b-2.xlsx (replication data)  
 
 ## Code Chunk 
-This products includes a self-contained code chunk. It is in the "newREADME.md" file, and includes a descprition of the code chunk, the code script, an image of the output, and an html link to the output. 
+This products includes a self-contained code chunk. It is in the "newREADME.md" file, and includes a description of the code chunk, the code script, and an image of the output. Actual output is under the file titled "Self-Contained chunk.pdf"
 
 ## Resume 
 This product is an updated data analyst resume
