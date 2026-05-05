@@ -6,3 +6,7 @@ I downloaded the data set from David McCandless at [informationisbeautiful.net](
 Each breed is sorted into either the herding breeds, terrier breeds, sporting breeds, toy breeds, 
 working breeds, non-sporting breeds, or hound breeds. My approached consisted of averaging the average lifespans among breeds in each
 AKC category, with the result being the average lifespand of each AKC category. I then present this data visually in a bar graph.
+This product includes:
+  1.) Breed Longevity.PDF
+  2.) bestinshow.qmd (reproducable code)
+  3.) best_dog.xlsx (replication data)
