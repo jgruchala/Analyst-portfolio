@@ -1,0 +1,230 @@
+---
+title: "Who Feels the Most at Risk in the Evolving International Order?"
+author: "Jordan Gruchala"
+format: 
+  beamer:
+    theme: "boxes"
+    colortheme: "dove"
+    fonttheme: "structurebold"
+editor: visual
+execute: 
+  echo: false
+  warning : false
+  message : false
+---
+
+## Overview
+
+\- In recent years, the post-Cold War order of high globalization and interconnection has been evolving back into a traditional great-power competition world order.
+
+\- No longer do stateless actors pose the main threat to international security.
+
+\- Especially given Russia's full-scale invasion of Ukraine, how are Europeans responding to this changing world order?
+
+## Central Findings
+
+\- Europeans of all nationalities perceive the security of their nation as under threat.
+
+\- The most insecure nationalities are not bordering aggressive countries, suggesting different dynamics at play.
+
+## Data set
+
+\- Eurobarometer survey, created February 11, 2026
+
+\- "Flash Eurobarometer FL574 : The European Union in Defence and Space"
+
+\- Survey data on citizens from member EU states
+
+\- Citation :
+
+European Commission, Directorate-General for Communication, ‘Flash Eurobarometer FL574 : The European Union in Defence and Space’, version v1.00, 2026, accessed 2026-04-20, http://data.europa.eu/88u/dataset/s3652_fl574_eng
+
+## Core Measures
+
+\- Core measures used for project :
+
+    - Q: Given the current international context, to what extent do you agree or disagree with the statement? The security of (OUR COUNTRY) is threatened.
+
+    - A: Strongly agree
+
+         Somewhat agree
+
+         Somewhat disagree
+
+         Strongly disagree
+
+         Don't know
+
+\- Demographic information on respondents age,
+
+  gender, and region.
+
+## Total 'agrees'
+
+### Proportion of respondents who either "strongly agree" or "somewhat agree" by country
+
+-in all but one EU member country, half or more of respondents at least somewhat agree their nation in under threat.
+
+```{r}
+#| fig-width: 13
+#| fig-height: 8
+# tdying data; filtering to focus on country and security threat
+library(tidyverse)
+setwd("~/downloads")
+library(readxl)
+library(dplyr)
+EU_A <- 
+read_excel("EUA.xlsx")
+security_country_threat <- 
+  read_excel("EUA.xlsx", sheet = 2) |> 
+  select(-"EU27") |> 
+  pivot_longer(
+    cols = !c("Country_name"),
+    names_to = "country",
+    values_to = "value"
+  ) |> 
+  pivot_wider(
+    names_from = "Country_name",
+    values_from = "value"
+  ) |> 
+  mutate(across(ends_with("prop"), ~.x * 100)) |> 
+  slice(-c(17, 11))
+
+# graphing EU countries in ascending order baed on precieved threat level
+  ggplot(security_country_threat, aes(x = reorder(country, total_agree_prop), y = total_agree_prop, fill = country)) +
+  geom_col(show.legend = FALSE) +
+  labs(title = "Percentage Respondents Who Percieve their Country's Security as Under Threat",
+       x = "Country",
+       y = "Percentage Respondents Who 'Agree'"
+       ) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10),
+                     expand = expansion(mult = c(0,0))) 
+ 
+
+```
+
+## Eastern European countries perception of threat
+
+### Proportion of respondents who either "strongly agree" or "somewhat agree" in countries bordering Russia
+
+```{r}
+# filtering for question about threat perception and for countries bordering Russia
+EastEurope <- filter(security_country_threat, country %in% c("Estonia", "Latvia", "Lithuania", "Poland", "Finland", "Norway"))
+
+# visulzization of countries bordering russia and their threat perception
+ggplot(EastEurope, aes(x = country, y = total_agree_prop, fill = country)) +
+  geom_col(show.legend = FALSE) +
+  labs(title = "Perception of Security Threat in Russian-Bordering Countries",
+       x = "Country", 
+       y = "Percentage of Respondents who 'Agree'") +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10),
+                     expand = expansion(mult = c(0,0))) 
+```
+
+## Why France?
+
+\- Why do French citizens feel the most threatened, given they are not the most at risk?
+
+## France by Demographic information
+
+```{r}
+# filtering and selecting data for french ages, genders, and region
+ugh <- 
+read_excel("EUFrance3.xlsx", sheet = 2) |> 
+  pivot_longer(
+    cols = ends_with("male"),
+    names_to = "gender",
+    values_to = "values_gender") |> 
+  pivot_longer(
+  cols = ends_with("years"),
+  names_to = "age_range",
+  values_to = "values_age",
+  ) |> 
+  select("agree_cat", "gender", "values_gender", "age_range", "values_age") |> 
+  mutate(across(ends_with("prop"), ~.x * 100))
+
+ugh3 <- 
+  ugh |> 
+  select("agree_cat", "gender", "values_gender") |>
+  pivot_wider(
+    names_from = "agree_cat",
+    values_from = "values_gender",
+    values_fn = list(values_gender = mean)
+    )|> 
+    mutate(across(ends_with("prop"), ~.x * 100))
+ugh4 <- 
+  ugh |> 
+  select("agree_cat", "age_range", "values_age") |> 
+  pivot_wider(
+    names_from = "agree_cat",
+    values_from = "values_age",
+    values_fn = list(values_age = mean)
+  ) |>
+  mutate(across(ends_with("prop"), ~.x * 100))
+ugh2 <- 
+  read_excel("EUFrance3.xlsx", sheet = 2) |> 
+ select("agree_cat", "Ile_de_France", "Centre", "Bourgogne_Franche_Comté", "Normandie", "Hauts_de_France", "Grand_Est","Pays_de_la_Loire", "Bretagne", "Nouvelle_Aquitaine", "Occitanie", "Auvergne_Rhône_Alpes", "Provence_Alpes_Côte_d'Azur", "Corse") |>
+  pivot_longer(
+    cols = !c("agree_cat"),
+    names_to = "Regions",
+    values_to = "values_region"
+  ) |> 
+  pivot_wider(
+    names_from = "agree_cat",
+    values_from = "values_region",
+    values_fn = list(values_region = mean)
+  ) |> 
+  mutate(across(ends_with("prop"), ~.x * 100))
+
+# plot for gender and threat perception 
+graph_ugh3 <- 
+  ggplot(ugh3, aes(x = gender, y = total_agree_prop, fill = gender)) +
+  geom_col(show.legend = FALSE) +
+  labs(title = "Perception of Threat by Gender, France",
+       x = "Gender",
+       y = "Percentage who 'agree'") +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10),
+                     expand = expansion(mult = c(0,0)))  
+# plot for age and threat perception
+graph_ugh4 <- 
+  ggplot(ugh4, aes(x = age_range, y = total_agree_prop, fill = age_range)) +
+  geom_col(show.legend = FALSE) +
+  labs(title = "Perception of Threat by age, France",
+       x = "Age range",
+       y = "Percentage who 'agree'") +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10),
+                     expand = expansion(mult = c(0,0))) +
+  scale_x_discrete(labels = c("15-24 years", "25-39 years", "40-54 years", "55+ years"))
+
+# plot for region and threat perception 
+graph_ugh2 <- 
+  ggplot(ugh2, aes(x = Regions, y = total_agree_prop, fill = Regions)) +
+  geom_col(show.legend = FALSE) +
+  labs(title = "Perception of Threat by Region, France",
+       x = "Region",
+       y = "Percentage who 'agree'") +
+  theme(axis.text.x = element_text(angle = 65, hjust = 1)) +
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10),
+                     expand = expansion(mult = c(0,0))) +
+  scale_x_discrete(labels = c("Auvergne-Rhône-Alpes", "Bourgonge-Franche-Comté", "Bretagne", "Centre", "Corse", "Grand Est","Hauts-de-France", "Ile de France", "Normandie", "Nouvelle-Aquitaine", "Occitanie", "Pays de la Loire", "Provence-Alpes-Côte d'Azur"))
+
+library(patchwork)
+graph_ugh2 / graph_ugh3 | graph_ugh4
+
+
+```
+
+## Results
+
+\- Percpetions of national threat level in France are remarkably stable across gender, age, and region. In fact, only the island of Corse shows a significant difference, with the proportion of respondents who agree at a much lower level. This begs the question, are feelings of national insecurity a mainland France phenomenon?
+
+## Conclusion
+
+\- As shown by the data, Europeans across nationalities and across demographics agree that the security of their nation in under threat.
+
+\- However, countries that border hostile countries do not show the highest level of alarm. Rising insecurity among Europeans has less do to with the actual level of threat a nation faces.
+
+\- There is little disparity between demographics in France, leading me to believe that the level of threat felt, at least in France, probably does not align with political affiliation, and is a country-wide phenomenon.
+
+\- Future researchers should examine what cultural and political conditions cause citizens of a country to feel as though their national security is threatened, regardless of the actual threat level.
