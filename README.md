@@ -8,6 +8,9 @@ working breeds, non-sporting breeds, or hound breeds. My approached consisted of
 AKC category, with the result being the average lifespand of each AKC category. I then present this data visually in a bar graph.
 
 This product includes:
+
   1.) Breed Longevity.PDF
+  
   2.) bestinshow.qmd (reproducable code)
+  
   3.) best_dog.xlsx (replication data)
